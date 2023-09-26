@@ -16,27 +16,7 @@
       <v-spacer></v-spacer> <!-- Add a spacer to push the search bar to the center -->
       
       <div class="text-center">
-    <v-menu
-      open-on-hover
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          color="primary"
-          v-bind="props"
-        >
-          Dropdown
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+   
   </div><v-text-field
         label="Search"
         solo-inverted
@@ -45,8 +25,11 @@
       ></v-text-field>
 
       <!-- Login and signup buttons on the right -->
-      <v-btn text>Log In</v-btn>
-      <v-btn text>Sign Up</v-btn>
+      <v-btn ><v-icon>mdi-cart</v-icon></v-btn>
+      <v-btn ><v-icon>mdi-account</v-icon></v-btn>
+
+      <v-btn variant="outlined">Log In</v-btn>
+      <v-btn variant="flat" color="warning">Sign Up</v-btn>
     </v-app-bar>
     
     <!-- Your main content here -->

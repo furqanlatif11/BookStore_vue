@@ -15,9 +15,44 @@
             trove for book lovers of all genres.
           </p>
 
-          <v-btn color="warning ml-10 mt-5">BESTSELLER</v-btn> 
-          <v-btn color="warning ml-10 mt-5"></v-btn> 
-
+          <v-card
+            class="rounded border ms-10 mt-10"
+            max-width="400px"
+            max-height="200px"
+            elevation="5"
+          >
+            <div class="d-flex">
+              <article>
+                <v-img
+                  src="src/assets/images/Untitled_design2.png"
+                  width="100px"
+                  height="100px"
+                ></v-img>
+              </article>
+              <article class="">
+                <v-card-title>Think & Grow Rich</v-card-title>
+                <v-card-text class="pb-0">Rating</v-card-text>
+                <v-icon color="orange ms-3">mdi-star</v-icon>
+                <v-icon color="orange">mdi-star</v-icon>
+                <v-icon color="orange">mdi-star</v-icon>
+                <v-icon color="orange">mdi-star</v-icon>
+                <v-icon color="orange">mdi-star</v-icon> 
+                <v-divider class="mt-3"></v-divider>   
+                <article class="mt-3 d-flex justify-space-around">
+                <a href="" class="ms-3 text-primary"><v-icon >mdi-cart</v-icon></a>
+                <a href="" class="ms-3 "  ><v-icon color="red">mdi-heart</v-icon></a>
+                <a href="" class="ms-3 "  ><v-icon color="black">mdi-shopping</v-icon></a>
+              </article>            
+              </article>
+             
+              <v-divider></v-divider>
+            </div>
+           
+          </v-card>
+          <v-btn color="warning ml-10 mt-5">BESTSELLER</v-btn>
+          <v-btn color="warning ml-10 mt-5" variant="outlined"
+            >EXPLORE MORE</v-btn
+          >
         </v-col>
 
         <!-- Right Column - Image -->
@@ -28,14 +63,6 @@
               max-width="500px"
             ></v-img>
           </div>
-          <v-card class="mt-5 position-relative d-flex" style="z-index: 1; width: 300px;">
-              <v-img
-                src="src/assets/images/Book-2.png"
-             max-width="150px"
-              ></v-img>
-              <v-card-title>White Hand</v-card-title>
-              <p>By Napolian Hill</p>
-            </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -52,20 +79,7 @@ export default {
   name: "App",
   name: "App",
   data() {
-    return {
-      carouselItems: [
-        {
-          src: "src/assets/images/Book-Featured-Image-ALL-1920X1080_1.jpg",
-          alt: "Image 1",
-        },
-        { src: "src/assets/images/Book-2.png", alt: "Image 2" },
-        {
-          src: "src/assets/images/MOTH_HowTellStory_HC_bookshot_facing_1_480x480.webp",
-          alt: "Image 3",
-        },
-        // Add more carousel items as needed
-      ],
-    };
+    return {};
   },
 };
 </script>
@@ -74,9 +88,8 @@ export default {
 /* Add custom CSS styles here for hero-text and hero-image */
 .hero-text {
   padding: 20px;
-  
+
   flex-direction: column;
- 
 }
 
 .hero-image {
@@ -96,7 +109,7 @@ export default {
 
 .typing-demo {
   width: 20ch;
-  animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+  animation: typing 2s steps(22), blink 0.5s infinite alternate;
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;

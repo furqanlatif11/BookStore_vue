@@ -35,7 +35,12 @@ Today's Goal:
               Admin Login Page
               Admin Panel Structure
               VEUX Documentation & Implementation
-              Main Dashboard Structure
+              Main/Guest Dashboard Structure
+Files To Concern:
+              AdminDashboard.vue
+              GuestDashboard.vue
+              Login.vue
+              Signup.vue
 
 Estimated Time:
               Till 6:00PM

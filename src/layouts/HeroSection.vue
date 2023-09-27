@@ -49,18 +49,19 @@
             </div>
            
           </v-card>
-          <v-btn color="warning ml-10 mt-5">BESTSELLER</v-btn>
-          <v-btn color="warning ml-10 mt-5" variant="outlined"
-            >EXPLORE MORE</v-btn
-          >
+          <v-btn color="warning ml-10 mt-5">EXPLORE MORE</v-btn>
+          <router-link to="Login"><v-btn color="warning ml-10 mt-5" variant="outlined"
+            >BUY NOW</v-btn
+          > </router-link>
         </v-col>
 
         <!-- Right Column - Image -->
         <v-col cols="12" md="6">
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center ">
             <v-img
               src="src/assets/images/thinking-man-gf9b9e7a8b_1920.png"
               max-width="500px"
+              class="pt-10"
             ></v-img>
           </div>
         </v-col>
@@ -68,9 +69,7 @@
     </v-container>
 
     <!-- Your main content here -->
-    <v-main>
-      <!-- Your page content goes here -->
-    </v-main>
+   
   </div>
 </template>
 
@@ -147,4 +146,5 @@ export default {
 .max-width-100 {
   max-width: 100%;
 }
+
 </style>

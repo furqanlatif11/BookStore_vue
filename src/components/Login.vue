@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pt-10">
       <v-card
         class="mx-auto pa-12 pb-8"
         elevation="8"
@@ -45,9 +45,7 @@
           color="surface-variant"
           variant="tonal"
         >
-          <v-card-text class="text-medium-emphasis text-caption">
-            Warning: After 3 consecutive failed login attempts, your account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
-          </v-card-text>
+          
         </v-card>
   
         <v-btn
@@ -61,7 +59,7 @@
           Log In
         </v-btn>
   
-        <router-link to="/">Sign up now <v-icon icon="mdi-chevron-right"></v-icon></router-link>
+        <router-link to="Signup">Sign up now <v-icon icon="mdi-chevron-right"></v-icon></router-link>
       </v-card>
     </div>
   </template>
@@ -103,7 +101,7 @@ export default {
         if (this.email == "admin@gmail.com" && this.password=="admin@123") {
           this.$router.push({ name: "Admindashboard" });
         } else {
-          this.$router.push({ name: "Userdashboard" });
+          this.$router.push({ name: "Guestdashboard" });
         }
 
         this.email = "";

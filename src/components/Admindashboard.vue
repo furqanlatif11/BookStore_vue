@@ -49,7 +49,7 @@
                   ></v-img>
                 </div>
                 <v-divider></v-divider>
-                <v-card-title>{{ book.title }}</v-card-title>
+                <v-card-title class="title-text">{{ book.title }}</v-card-title>
                 <v-card-text class="description-text">{{
                   book.description
                 }}</v-card-text>
@@ -112,15 +112,18 @@
                   ></v-img>
                 </div>
                 <v-divider></v-divider>
-                <v-card-title>{{ book.title }}</v-card-title>
+                <v-card-title class="title-text">{{ book.title }}</v-card-title>
                 <v-card-text class="description-text">{{
                   book.description
                 }}</v-card-text>
                 <v-divider></v-divider>
 
-                <v-card-actions>
-                  <div class="text-h6">Price: ${{ book.price }}</div>
+                <v-card-actions >
+                  <div class="text-h6 text-center">Price: ${{ book.price }}</div>
                 </v-card-actions>
+              <div class="text-center">
+                <v-btn variant="flat" color="red"><v-icon>mdi-delete</v-icon>Delete</v-btn>
+              </div>
               </v-card>
             </v-col>
           </v-row>
@@ -174,7 +177,9 @@
               <v-card-text>{{ product.description }}</v-card-text>
               <v-card-actions>
                 <div class="text-h6">Price: ${{ product.price }}</div>
+               
               </v-card-actions>
+              
             
             </v-card>
           </v-col>
@@ -317,30 +322,33 @@ export default {
 <style>
 @media (max-width: 600px) {
   .toggle-icon {
-    display: inline-block; /* Show the hamburger icon */
+    display: inline-block; 
   }
   .title {
-    display: none; /* Hide the title */
+    display: none; 
   }
   .logout-btn {
-    font-size: 12px; /* Reduce the font size of the Logout button */
+    font-size: 12px;
   }
 }
 .navs {
   min-height: 0;
 }
 .card-image-container {
-  /* Set a fixed height for the image container */
-  height: 200px; /* Adjust the height as needed */
-  overflow: hidden; /* Hide any overflow to maintain card size */
+
+  height: 200px; 
+  overflow: hidden; 
 }
 .description-text {
-  /* Limit text to 3 lines and add ellipsis (...) for overflow */
+
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Number of lines to display */
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 3em; /* Adjust the max height based on the number of lines */
+  max-height: 3em; 
+}
+.title-text{
+    white-space: normal;
 }
 </style>

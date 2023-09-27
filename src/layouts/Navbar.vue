@@ -1,42 +1,61 @@
 <template>
-  <v-app>
+ 
     <v-app-bar app color="deep-purple">
-      <!-- Logo on the left -->
+
       <v-app-bar-nav-icon>
-        <!-- Replace with your custom logo using an <img> element -->
+ 
         <img
-          src="assets\images\77912002c277839aff249d10fac499cc"
+          src="src\assets\images\Untitled design.png"
           alt="Logo"
           max-height="48"
-          max-width="120"
+          max-width="160"
         />
       </v-app-bar-nav-icon>
 
-      <!-- Centered search bar -->
-      <v-spacer></v-spacer> <!-- Add a spacer to push the search bar to the center -->
+   
+      <v-spacer></v-spacer> 
       
       <div class="text-center">
    
-  </div><v-text-field
+  </div>
+  <v-text-field
         label="Search"
         solo-inverted
         hide-details
         prepend-inner-icon="mdi-magnify"
-      ></v-text-field>
+        class="rounded-pill custom-search-bar"></v-text-field>
 
-      <!-- Login and signup buttons on the right -->
-      <v-btn ><v-icon>mdi-cart</v-icon></v-btn>
-      <v-btn ><v-icon>mdi-account</v-icon></v-btn>
+      <v-spacer></v-spacer> 
+      <router-link to="UserCart">
+        <v-btn ><v-icon title="Cart" color="white">mdi-cart</v-icon></v-btn>
+       </router-link>
+      <v-btn ><v-icon title="Your Wishlist">mdi-shopping</v-icon></v-btn>
+      <div class="text-center">
+    <v-menu
+      open-on-hover
+    >
+      <template v-slot:activator="{ props }">
+        <v-btn   color="white"
+          v-bind="props"><v-icon title="Account">mdi-account</v-icon></v-btn>
+      </template>
 
-      <v-btn variant="outlined">Log In</v-btn>
-      <v-btn variant="flat" color="warning">Sign Up</v-btn>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </div>
+
+      <router-link to="Login"> <v-btn variant="outlined" color="warning">Log In</v-btn></router-link>
+     <router-link to="Signup"> <v-btn variant="flat" color="warning">Sign Up</v-btn></router-link>
     </v-app-bar>
     
-    <!-- Your main content here -->
-    <v-main>
-      <!-- Your page content goes here -->
-    </v-main>
-  </v-app>
+
+
 </template>
 
 
@@ -54,12 +73,18 @@ export default {
   data() {
     return {
       drawer: false,
+      menuOpen: false, 
+      items: [
+        { title: 'Manage Account' },
+       
+      ],
     };
   },
   methods: {
     logout() {
 
     },
+
   },
 
 
@@ -72,11 +97,11 @@ export default {
  },
  methods: {
    toggleSidebar() {
-     // You can implement the logic to toggle the sidebar here
+    
    },
    async logout() {
   try {
-    // Send a POST request to the logout API endpoint
+
     const response = await fetch('http://10.0.10.211:3300/api/logout', {
       method: 'POST',
       headers: {
@@ -98,24 +123,12 @@ export default {
 }
 
  },
- computed: {
-    // Determine if the "Login" and "Signup" buttons should be shown
-    showLoginSignupButtons() {
-      // Replace 'guest' and 'user' with the appropriate route names
-      return this.$route.name !== "Userdashboard" && this.$route.name !== "Admindashboard" && this.$route.name !=="CreateNewBlog";
+ redirectTo(route) {
+
+      this.$router.push({ name: route });
+      this.menuOpen = false;
     },
-    showCreateButtons(){
-      return this.$route.name !=="Admindashboard" && this.$route.name !=="Guestdashboard"
-    }
-  },
-  data: () => ({
-      items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
-    }),
+
 };
  
 
@@ -124,21 +137,29 @@ export default {
 </script>
 
 <style scoped>
-/* Add any custom styles for your Navbar here */
 
-/* Media query for screens smaller than 600px */
 @media (max-width: 600px) {
   .toggle-icon {
-    display: inline-block; /* Show the hamburger icon */
+    display: inline-block; 
   }
   .title {
-    display: none; /* Hide the title */
+    display: none; 
   }
   .logout-btn {
-    font-size: 12px; /* Reduce the font size of the Logout button */
+    font-size: 12px; 
   }
 }
 .navs {
   min-height: 0;
+}
+
+.custom-search-bar {
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+div:hover .v-menu__content {
+  display: block !important;
 }
 </style>

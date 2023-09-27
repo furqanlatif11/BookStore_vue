@@ -5,9 +5,9 @@ import Admindashboard from '@/components/Admindashboard.vue'
 import Guestdashboard from '@/components/Guestdashboard.vue'
 import Login from '@/components/Login.vue'
 import Signup from '@/components/Signup.vue'
-import Adduser from '@/components/Adduser.vue'
-import Addblog from '@/components/Addblog.vue'
-import CreateNewBlog from '@/components/CreateNewBlog'
+import ProductPage from '@/components/ProductPage'
+import UserCart from '@/components/UserCart'
+// import HeroSection from '@/components/HeroSection'
 
 const routes = [
   {
@@ -30,25 +30,22 @@ const routes = [
     name: 'Signup',
     component: Signup
   },
-  {
-    path: '/adduser',
-    name: 'Adduser',
-    component: Adduser
-  },
-  {
-    path: '/addblog',
-    name: 'Addblog',
-    component: Addblog
-  },
+
   {
     path: '/',
     name: 'Guestdashboard',
     component: Guestdashboard
   },
+
   {
-    path:'/createnewblog',
-    name:'CreateNewBlog',
-    component:CreateNewBlog
+    path: '/productpage', // Use a dynamic parameter ":productId"
+    name: 'ProductPage',
+    component: ProductPage, // Create a component for the product page
+  },
+  {
+    path: '/usercart',
+    name: 'UserCart',
+    component: UserCart,
   }
   
 ]

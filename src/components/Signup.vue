@@ -57,7 +57,7 @@
       </v-btn>
     </v-card-actions>
     <v-divider></v-divider>
-    <router-link to="/login "
+    <router-link to="Login"
       >Login now <v-icon icon="mdi-chevron-right"></v-icon
     ></router-link>
   </v-card>

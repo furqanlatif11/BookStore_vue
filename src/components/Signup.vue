@@ -1,297 +1,154 @@
 <template>
   <v-card class="mx-auto mt-10" style="max-width: 500px">
-    <v-toolbar color="deep-purple-accent-4" cards dark flat>
-      <v-btn icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-      <v-card-title class="text-h6 font-weight-regular"> Sign up </v-card-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-form ref="form" v-model="isValid" class="pa-4 pt-6">
-      <v-text-field
-              v-model="username"
-              variant="filled"
-              color="deep-purple"
-              label="Username"
-              type="text"
-              id="username"
-      ></v-text-field>
+    <v-card-title class="headline"> Sign Up </v-card-title>
 
-      <v-text-field
-              v-model="email"
-              variant="filled"
-              color="deep-purple"
-              label="Email address"
-              type="email"
-              id="email"
-      ></v-text-field>
+    <v-card-text>
+      <v-form @submit.prevent="signupForm">
+        <v-text-field
+          v-model="name"
+          label="Name"
+          :rules="nameRules"
+          validate-on="blur"
+        ></v-text-field>
 
-      <v-text-field
-              v-model="password"    
-              variant="filled"
-              color="deep-purple"
-              counter="6"
-              label="Password"
-              style="min-height: 96px"
-              type="password"
-              id="password"
-      ></v-text-field>
-    </v-form>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-btn variant="text" @click="reset"> Clear </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
-        :disabled="!isValid"
-        :loading="isLoading"
-        color="deep-purple-accent-4"
-        @click="signup"
-      >
-        Submit
-      </v-btn>
-    </v-card-actions>
-    <v-divider></v-divider>
-    <router-link to="Login"
-      >Login now <v-icon icon="mdi-chevron-right"></v-icon
-    ></router-link>
+        <v-text-field
+          v-model="email"
+          label="Email"
+          :rules="emailRules"
+          validate-on="blur"
+        ></v-text-field>
+
+        <v-text-field
+          label="Password"
+          type="password"
+          v-model="password"
+          :rules="passwordRules"
+          validate-on="blur"
+        ></v-text-field>
+
+        <v-text-field
+          label="Confirm Password"
+          type="password"
+          v-model="confirmpass"
+          :rules="confirmPassRules"
+          validate-on="blur"
+        ></v-text-field>
+
+        <v-btn
+          type="submit"
+          class="mt-3"
+          :disabled="!isFormValid"
+          color="indigo"
+        >
+          Submit
+        </v-btn>
+
+        <p class="mt-2">
+          Already registered? <router-link to="/login">Click here to Login</router-link>
+        </p>
+      </v-form>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
-
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
-  data() {
-    return {
-      username: "",
-      email: "",
-      password: "",
-      isValid: false,
-      isLoading: false,
-    };
-  },
-  methods: {
-    reset() {
-      this.email = "";
-      this.password = "";
+  name: "SignupForm",
+
+  data: () => ({
+    name: "",
+    email: "",
+    password: "",
+    confirmpass: "",
+  }),
+
+  computed: {
+    nameRules() {
+      return [
+        (v) => !!v || "Name is required",
+
+        (v) => v.length >= 4 || "Name must be at least 4 characters",
+      ];
     },
-    async signup() {
-      this.isLoading = true;
-      try {
-        const response = await fetch("http://10.0.10.211:3300/api/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: this.username,
-            email: this.email,
-            password: this.password,
-          }),
-        });
 
-        if (!response.ok) {
-          console.error("HTTP error:", response.status);
-          alert("User not found");
-          this.isLoading = false;
-          return;
-        }
+    emailRules() {
+      return [
+        (v) => !!v || "Email is required",
 
-        const data = await response.json();
-        localStorage.setItem("Signup", JSON.stringify(data));
-        console.log(data);
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ];
+    },
 
-        this.$router.push({ name: "Login" });
+    passwordRules() {
+      return [
+        (v) => !!v || "Password is required",
 
-        // Clear form fields
-        this.username = "";
-        this.email = "";
-        this.password = "";
+        (v) => v.length >= 8 || "Password must be at least 8 characters",
+      ];
+    },
 
-        this.isLoading = false;
+    confirmPassRules() {
+      return [
+        (v) => !!v || "Please confirm your password",
 
-        // Handle the response data as needed
-      } catch (error) {
-        console.error("Error:", error);
-        alert("User not found");
-        this.isLoading = false;
+        (v) => v === this.password || "Passwords do not match",
+      ];
+    },
+
+    isFormValid() {
+      return (
+        this.nameRules.every((rule) => rule(this.name) === true) &&
+        this.emailRules.every((rule) => rule(this.email) === true) &&
+        this.passwordRules.every((rule) => rule(this.password) === true) &&
+        this.confirmPassRules.every((rule) => rule(this.confirmpass) == true)
+      );
+    },
+  },
+
+  methods: {
+    async signupForm() {
+      let result = await axios.post("http://10.0.10.220:8080/api/register", {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        confirm_password: this.confirmpass,
+      });
+
+      if (result.status == 200) {
+        this.$router.push("/login");
+      } else {
+        console.error("API Error:", response);
       }
     },
   },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { ref } from "vue";
-// import { useRouter } from "vue-router";
-// const username = ref("");
-// const email = ref("");
-// const password = ref("");
-// const router = useRouter();
-// export default {
-//   methods: {
-//     reset() {
-//       this.email = "";
-//       this.password = "";
-//     },
-//   },
-//   const Signup = async (e) => {
-//   e.preventDefault();
-
-//   try {
-//     const response = await fetch("http://10.0.10.211:3300/api/register", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         name: usernamename.value,
-//         email: email.value,
-//         password: password.value,
-//       }),
-//     });
-
-//     if (!response.ok) {
-//       // Handle non-2xx HTTP response status codes here
-//       console.error("HTTP error:", response.status);
-//       alert("User not found");
-//       return;
-//     }
-
-//     const data = await response.json();
-//     localStorage.setItem("Signup", JSON.stringify(data));
-//     console.log(data);
-//     router.push({ name: "Login" });
-//     name.value = "";
-//     email.value = "";
-//     password.value = "";
-
-//     // Handle the response data as needed
-//   } catch (error) {
-//     // Handle other types of errors, e.g., network issues
-//     console.error("Error:", error);
-//     alert("User not found");
-//   }
-// },
-
-  //  async registerUser() {
-  //   // Perform user registration and local storage storage here
-  //    try {
-  //      const response = await fetch("http://10.0.10.211:3300/api/register", {
-  //        method: "POST",
-  //      headers: { "Content-Type": "application/json" },
-  //        body: JSON.stringify({
-  //         name: this.username,
-  //          email: this.email,
-  //          password: this.password,
-  //        }),
-  //      });
-
-  //      if (!response.ok) {
-  //        console.error("HTTP error:", response.status);
-  //        alert("Registration failed");
-  //        return;
-  //      }
-
-  //      const userData = await response.json();
-
-  //      // Store user data in local storage
-  //      localStorage.setItem("userData", JSON.stringify(userData.user));
-
-  //      // Optionally, you can clear the form fields
-  //      this.username = "";
-  //    this.email = "";
-  //      this.password = "";
-
-  //     // Redirect the user to the login page or perform any other action
-  //     // router.push({ name: 'Login' }); // Uncomment this if you have Vue Router set up
-  //  } catch (error) {
-  //     console.error("Error:", error);
-  //     alert("Registration failed");
-  //   }
-  //  },
-//};
-
 </script>
 
-//
-<script setup>
-// import { ref } from "vue";
-// import { useRouter } from "vue-router";
-// const name = ref("");
-// const email = ref("");
-// const password = ref("");
-// const router = useRouter();
+<style scoped>
+.v-card {
+  margin: auto;
+  margin-top: 10vh;
+  max-width: 500px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
 
-// const Signup = async (e) => {
-//   e.preventDefault();
+.v-card-title {
+  text-align: center;
+}
 
-//   try {
-//     const response = await fetch("http://10.0.10.211:3300/api/register", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         name: name.value,
-//         email: email.value,
-//         password: password.value,
-//       }),
-//     });
+/* Center-align the form fields within the card */
+.v-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-//     if (!response.ok) {
-//       // Handle non-2xx HTTP response status codes here
-//       console.error("HTTP error:", response.status);
-//       alert("User not found");
-//       return;
-//     }
-
-//     const data = await response.json();
-//     localStorage.setItem("Signup", JSON.stringify(data));
-//     console.log(data);
-//     router.push({ name: "Login" });
-//     name.value = "";
-//     email.value = "";
-//     password.value = "";
-
-//     // Handle the response data as needed
-//   } catch (error) {
-//     // Handle other types of errors, e.g., network issues
-//     console.error("Error:", error);
-//     alert("User not found");
-//   }
-//};
-
-// const isValidEmail = (email) =>
-// {
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     return emailRegex.test(email);
-// };
-</script>
+/* Add spacing between form fields */
+.v-text-field {
+  margin-bottom: 16px;
+  width: 100%; /* Ensure each input field takes the full width */
+}
+</style>

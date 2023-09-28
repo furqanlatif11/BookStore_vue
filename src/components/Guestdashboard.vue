@@ -7,33 +7,45 @@
         <h1>Our Featured <scope class="text-deep-purple">Books</scope>
         </h1>
         <v-row class="mt-5">
-          <v-col v-for="book in books" :key="book.id" cols="12" sm="12" md="3" lg="2">
+          <v-col v-for="book in books" :key="book.id" cols="12" sm="6" md="4" lg="3">
             <v-card class="border rounded" elevation="2" @mouseenter="showOverlay = true"
               @mouseleave="showOverlay = false">
               <!-- Image -->
               <div class="card-image-container">
-                <v-img :src="book.imageUrl" alt="Book Cover" max-height="100%" max-width="100%"></v-img>
+                <v-img :src="book.cover_image" alt="Book Cover" max-height="100%" max-width="100%"></v-img>
                 <!-- Overlay with options -->
                 <div class="overlay" v-if="showOverlay">
                   <!-- Product details -->
                   <router-link to="ProductPage">
                     <v-btn icon color="deep-purple">
-                      <v-icon color="white">mdi-eye</v-icon>
+                      <v-icon color="white" @click="productinfo">mdi-eye</v-icon>
                     </v-btn>
                   </router-link>
                   <!-- <v-btn icon @click="navigateToProductPage" color="deep-purple">
                     <v-icon color="white">mdi-eye</v-icon>
                   </v-btn> -->
                   <!-- Add to cart -->
-                  <router-link to="UserCart">
-                    <v-btn icon @click="addToCart" color="deep-purple">
+                   <div class="text-center">
+                    <v-btn icon @click="snackbar = true" color="deep-purple" >
                       <v-icon color="white">mdi-cart-plus</v-icon>
                     </v-btn>
-                  </router-link>
+
+                    <v-snackbar v-model="snackbar" :timeout="timeout" >
+                      {{ text }}
+
+                      <template v-slot:actions>
+                        <v-btn color="blue" variant="text" @click="snackbar = false">
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                      </template>
+                    </v-snackbar>
+                  </div>
+
                 </div>
               </div>
               <v-divider></v-divider>
               <v-card-title class="title-text">{{ book.title }}</v-card-title>
+              <v-card-text class="author-text">Author: {{ book.author }}</v-card-text>
               <v-card-text class="description-text">{{
                 book.description
               }}</v-card-text>
@@ -46,71 +58,34 @@
         </v-row>
       </div>
     </v-container>
+
   </v-app>
-  <Sidebar />
+
+
+
 </template>
 
 <script>
 import Navbar from "@/layouts/Navbar.vue";
 import HeroSection from "@/layouts/HeroSection.vue";
 import { RouterLink } from "vue-router";
+import axios from 'axios';
+import Footer from '@/layouts/Footer.vue';
 
 
 export default {
   data() {
     return {
       showOverlay: false,
-      books: [
-        {
-          id: 1,
-          title: "How to Tell Story",
-          description:
-            "This book is all about fiction stories. This book is all about fiction stories.This book is all about fiction stories.",
-          price: 200,
-          imageUrl:
-            "src/assets/images/MOTH_HowTellStory_HC_bookshot_facing_1_480x480.webp",
-        },
-        {
-          id: 2,
-          title: "How to Tell Story",
-          description: "This book is all about fiction stories.",
-          price: 200,
-          imageUrl: "src/assets/images/3.+The+Perfect+Story+angled.png",
-        },
-        {
-          id: 3,
-          title: "How to Tell Story",
-          description:
-            "This book is all about fiction stories. This book is all about fiction stories.",
-          price: 200,
-          imageUrl: "src/assets/images//book.png",
-        },
-        {
-          id: 4,
-          title: "How to Tell Story",
-          description: "This book is all about fiction stories.",
-          price: 200,
-          imageUrl: "src/assets/images/book.png",
-        },
-        {
-          id: 5,
-          title: "How to Tell Story",
-          description:
-            "This book is all about fiction stories.This book is all about fiction stories.",
-          price: 200,
-          imageUrl:
-            "src/assets/images/Book-Review-Stories-I-Must-Tell-The-Emotional-Life-Of-An-Actor-By-Kabir-Bedi-1.jpg",
-        },
-        {
-          id: 6,
-          title: "How to Tell Story",
-          description: "This book is all about fiction stories.",
-          price: 200,
-          imageUrl:
-            "src/assets/images/MOTH_HowTellStory_HC_bookshot_facing_1_480x480.webp",
-        },
-      ],
+      snackbar: false,
+      text: 'Item Added to Cart.',
+      timeout: 2000,
+      books: [],
     };
+  },
+
+  mounted() {
+    this.getBooks();
   },
   methods: {
     navigateToProductPage() {
@@ -119,13 +94,32 @@ export default {
     addToCart() {
       // Implement logic to add the book to the cart when clicked
     },
+    async getBooks() {
+
+      try {
+
+        const response = await axios.get('http://10.0.10.220:8080/api/book')
+        this.books = response.data.books;
+      } catch (error) {
+
+        console.error('Error fetching books:', error)
+
+      }
+
+    },
+
   },
+  async productinfo(){
+    
+  },
+
   components: {
     //  Sidebar,
     Navbar,
     HeroSection,
+    Footer,
   },
-};
+}
 </script>
 
 <style scoped>

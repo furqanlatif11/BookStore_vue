@@ -70,6 +70,7 @@
 
 
 <script>
+import axios from 'axios';
 
 export default {
   data: () => ({
@@ -77,42 +78,32 @@ export default {
     email: "",
     password: "",
   }),
-  name: "Login",
-  methods: {
+
+    methods: {
     async login() {
-      try {
-        const response = await fetch("http://10.0.10.211:3300/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: this.email, password: this.password }),
-        });
+      let result = await axios.post("http://10.0.10.220:8080/api/login", {
+        email: this.email,
+        password: this.password
+        
+      });
+      console.log(result.data);
+      if (result.status == 200) {
+       localStorage.setItem('user_info', JSON.stringify(result.data));
+       if(this.email=="admin@gmail.com" && this.password=="12345678"){
+        this.$route.push('/admindashboard')
+       }
+       else{
+        this.$route.push('/')
+        
+       }
 
-        if (!response.ok) {
-          console.error("HTTP error:", response.status);
-          alert("Login failed");
-          return;
-        }
-
-        const data = await response.json();
-        localStorage.setItem("access_token", JSON.stringify(data.access_token));
-        localStorage.setItem("userid", JSON.stringify(data.user_id));
-        console.log(data);
-
-        if (this.email == "admin@gmail.com" && this.password=="admin@123") {
-          this.$router.push({ name: "Admindashboard" });
-        } else {
-          this.$router.push({ name: "Guestdashboard" });
-        }
-
-        this.email = "";
-        this.password = "";
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Login failed");
+      } else {
+        console.error("API Error:", response);
       }
     },
   },
 };
+
 </script>
 
 

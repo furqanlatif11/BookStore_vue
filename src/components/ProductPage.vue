@@ -4,6 +4,15 @@
 
     <v-container class="mt-10">
            <h1 >How To tell Story</h1>
+           <v-card-title class="title-text">{{ book.title }}</v-card-title>
+           <v-card-text class="author-text">Author: {{ book.author }}</v-card-text>
+              <v-card-text class="description-text">{{
+                book.description
+              }}</v-card-text>
+              <v-divider></v-divider>
+             
+                <div class="text-h6">Price: ${{ book.price }}</div>
+             
        </v-container>
    
  </v-app>
@@ -11,17 +20,24 @@
   
 </template>
 
-
-
-
 <script>
+
+
+
 import Navbar from "@/layouts/Navbar.vue";
 
 export default {
     components:{
         Navbar,
+    },
+    data(){
+        return{
+            books: []
+        }
     }
+
 }
+    
 
 </script>
 <!-- <template>

@@ -1,4 +1,15 @@
+             DATE: 28-Sept-2023      DAY: Thursday
+Today's Goal
+              Enhanced Interface
+              GuestDashboard API Implementation
+              Guest Dashboard Products Listing
+              Login API Implementation
+              Signup API  Implementation
+              
+              
+              
               DATE: 27-Sept-2023      DAY: Wednesday
+              
 
 Project Name:   Book Store
 

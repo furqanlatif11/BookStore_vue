@@ -1,78 +1,76 @@
+
 <template>
- <v-app>
-    <Navbar />
+  <v-app>
+    <v-main>
+      <v-container>
+        <div>
+          <h1 class="mt-10">Book Details</h1>
+          <v-row class="mt-10">
+            <v-col cols="12" sm="12" md="6" lg="6">
+              <v-card elevation="5">
+                <v-card-title class="pt-10">
+                  Title: {{ book.title }}
+                </v-card-title>
+                <v-card-text>Author: {{ book.author }}</v-card-text>
+                <v-card-text class="description-text">
+                  Description: {{ book.description }}
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-title>
+                  Price: ${{ book.price }}
+                </v-card-title>
+              </v-card>
 
-    <v-container class="mt-10">
-           <h1 >How To tell Story</h1>
-           <v-card-title class="title-text">{{ book.title }}</v-card-title>
-           <v-card-text class="author-text">Author: {{ book.author }}</v-card-text>
-              <v-card-text class="description-text">{{
-                book.description
-              }}</v-card-text>
-              <v-divider></v-divider>
-             
-                <div class="text-h6">Price: ${{ book.price }}</div>
-             
-       </v-container>
-   
- </v-app>
- 
-  
+            </v-col>
+            <v-col cols="12" sm="12" md="6" lg="6">
+              <v-img :src="book.cover_image" alt="Book Cover" max-height="75%" max-width="75%">
+
+              </v-img>
+
+            </v-col>
+          </v-row>
+        </div>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
-
+  
 <script>
-
-
-
-import Navbar from "@/layouts/Navbar.vue";
+import axios from 'axios';
 
 export default {
-    components:{
-        Navbar,
-    },
-    data(){
-        return{
-            books: []
-        }
+  data() {
+    return {
+      book: [],
+    };
+  },
+  async created() {
+
+    const bookId = this.$route.params.id;
+
+
+    try {
+      const response = await axios.get(`http://10.0.10.220:8080/api/book/${bookId}`);
+      console.log('API Response:', response);
+      this.book = response.data.book;
+      console.log('Book Details:', this.book);
+    } catch (error) {
+      console.error('Error fetching book details:', error);
     }
-
-}
-    
-
-</script>
-<!-- <template>
-    <div>
-      <img :src="product.imageUrl" alt="Product Image" />
-      <h1>{{ product.title }}</h1>
-      <p>{{ product.description }}</p>
-      <p>Price: ${{ product.price }}</p>
- 
-    </div>
-  </template>
+  },
 
 
-
-
-  <script>
-  export default {
-    data() {
-      return {
-        product: {}, // Initialize an empty product object
-      };
-    },
-    
-        created() {
-  // Fetch product data based on the productId from the route params
-  const productId = this.$route.params.productId;
-
-  // Access product details from locally stored data (e.g., your books array)
-  // Example:
-  this.product = this.books.find((book) => book.id === productId);
-
-  // If the product with the specified ID is found, "this.product" will contain its details
-}
 };
+</script>
+  
+<style scoped>
+.description-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 
-
-  </script>
-   -->
+  text-overflow: ellipsis;
+  max-height: 3em;
+}
+</style>
+  

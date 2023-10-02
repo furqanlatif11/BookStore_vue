@@ -68,42 +68,41 @@
   
 
 
-
-<script>
-import axios from 'axios';
-
-export default {
-  data: () => ({
-    visible: false,
-    email: "",
-    password: "",
-  }),
-
+  <script>
+  import axios from 'axios';
+  
+  export default {
+    data: () => ({
+      visible: false,
+      email: "",
+      password: "",
+    }),
+  
     methods: {
-    async login() {
-      let result = await axios.post("http://10.0.10.220:8080/api/login", {
-        email: this.email,
-        password: this.password
-        
-      });
-      console.log(result.data);
-      if (result.status == 200) {
-       localStorage.setItem('user_info', JSON.stringify(result.data));
-       if(this.email=="admin@gmail.com" && this.password=="12345678"){
-        this.$route.push('/admindashboard')
-       }
-       else{
-        this.$route.push('/')
-        
-       }
-
-      } else {
-        console.error("API Error:", response);
-      }
+      async login() {
+        let result = await axios.post("http://10.0.10.220:8080/api/login", {
+          email: this.email,
+          password: this.password,
+        });
+  
+        console.log(result.data);
+  
+        if (result.status == 200) {
+          localStorage.setItem('user_info', JSON.stringify(result.data));
+  
+          if (this.email === "admin@gmail.com" && this.password === "12345678") {
+            // Admin login
+            this.$router.push('/admindashboard');
+          } else {
+            // Regular user login
+            this.$router.push('/');
+          }
+        } else {
+          console.error("API Error:", response);
+        }
+      },
     },
-  },
-};
-
-</script>
-
+  };
+  </script>
+  
 

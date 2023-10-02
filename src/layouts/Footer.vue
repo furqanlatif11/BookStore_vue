@@ -1,8 +1,10 @@
 <template>
-    <v-footer
-      color="primary"
+    <v-app>
+        <v-footer
+      color="deep-purple"
       padless
       app
+      class="Footer"
     >
       <v-container>
         <!-- Contact Us -->
@@ -34,17 +36,21 @@
   
           <!-- Quick Links -->
           <v-col cols="12" md="4">
-            <h3 class="white--text">Quick Links</h3>
-            <ul class="list-unstyled white--text">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Products</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
+            <div class="ms-10">
+                <h3 class="white--text">Quick Links</h3>
+            <ul class="list-unstyled  quick-links">
+              <li class=" "><a href="#" >Home</a></li>
+              <li ><a href="#">Products</a></li>
+              <li ><a href="#">About Us</a></li>
+              <li ><a href="#">Contact Us</a></li>
             </ul>
+
+            </div>
           </v-col>
         </v-row>
       </v-container>
     </v-footer>
+    </v-app>
   </template>
 
 <script>
@@ -62,3 +68,9 @@ export default {
   },
 };
 </script>
+<style>
+.quick-links li a{
+    text-decoration: none; 
+    color: white;
+}
+</style>

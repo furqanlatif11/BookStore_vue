@@ -1,55 +1,51 @@
 <template>
-    <v-table density="compact" elevation="5" >
-      <thead>
-        <tr>
-          <th class="text-left">
-            User ID
-          </th>
-          <th class="text-left">
-            User Name
-          </th>
-          <th class="text-left">
-            Email
-          </th>
+  <v-table density="compact" elevation="5">
+    <thead>
+      <tr>
+        <th class="text-left">User ID</th>
+        <th class="text-left">User Name</th>
+        <th class="text-left">Email</th>
+        <th class="text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in info.data" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <v-btn color="red"><v-icon>mdi-delete</v-icon> Delete</v-btn>
+      </tr>
+    </tbody>
+  </v-table>
+</template>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in info"
-          :key="item.name"
-        >
-          <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.email }}</td>
+<script>
+import axios from 'axios';
 
-        </tr>
-      </tbody>
-    </v-table>
-  </template>
-  <script>
-  export default {
-    data () {
-      return {
-        info: [
-          {
-            id:"01",
-            name: 'Muhammad Ali',
-            email: "m.ali123@mail.com",
-          },
-          {
-            id:"02",
-            name: 'Muhammad Ahmad',
-            email: "m.ahmad@mail.com",
-          },
-          {
-            id:"03",
-            name: 'Mukhtar Ali',
-            email: "mukhtar@mail.com",
-          },
- 
-        ],
+export default {
+  data() {
+    return {
+      info: [],
+    };
+  },
+  mounted() {
+    this.fetchUserData();
+  },
+  methods: {
+    async fetchUserData() {
+      try {
+
+
+        const response = await axios.get('http://10.0.10.220:8080/api/users', {
+          headers: {
+            'Authorization': 'Bearer 110|CPALj2mDX3c6S03Iyc1oWVU6tpIVTzgusbsuQJcN64cae692'
+          }
+        });
+        this.info = response.data;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
-    },
-  }
+    }
+  },
+};
 </script>

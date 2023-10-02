@@ -5,8 +5,10 @@ import Admindashboard from '@/components/Admindashboard.vue'
 import Guestdashboard from '@/components/Guestdashboard.vue'
 import Login from '@/components/Login.vue'
 import Signup from '@/components/Signup.vue'
-import ProductPage from '@/components/ProductPage'
-import UserCart from '@/components/UserCart'
+import ProductPage from '@/components/ProductPage.vue'
+import UserCart from '@/components/UserCart.vue'
+import AdminProductPage from '@/components/AdminProductPage.vue'
+import WishlistPage from '@/components/WishlistPage.vue'
 // import HeroSection from '@/components/HeroSection'
 
 const routes = [
@@ -30,6 +32,11 @@ const routes = [
     name: 'Signup',
     component: Signup
   },
+  // {
+  //   path: '/topsellingbooks',
+  //   name: 'TopSellingBooks',
+  //   component: TopSellingBooks
+  // },
 
   {
     path: '/',
@@ -38,15 +45,28 @@ const routes = [
   },
 
   {
-    path: '/productpage', // Use a dynamic parameter ":productId"
+    path: '/productpage/:id', 
     name: 'ProductPage',
-    component: ProductPage, // Create a component for the product page
+    component: ProductPage, 
+    props: true,
   },
   {
     path: '/usercart',
     name: 'UserCart',
     component: UserCart,
-  }
+  },
+  {
+    path: '/adminproductpage',
+    name: 'AdminProductPage',
+    component: AdminProductPage,
+  }, 
+  {
+    path: '/wishlistpage/:id',
+    name: 'WishlistPage',
+    component: WishlistPage,
+  }, 
+  
+  
   
 ]
 

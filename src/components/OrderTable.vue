@@ -1,106 +1,58 @@
 <template>
-    <v-app>
-    </v-app>
-    <v-main>
-        <v-table density="compact" elevation="5" class="p   b-5" >
-      <thead>
-        <tr>
-            <th class="text-left">
-            Order ID
-          </th>
-         
-          <th class="text-left">
-            User Name
-          </th>
-          <th class="text-left">
-            Email
-          </th>
-         
-          <th class="text-left">
-            Status
-          </th>
+  <v-table density="compact" elevation="5">
+    <thead>
+      <tr>
+        <th class="text-left">ID</th>
+        <th class="text-left">User ID</th>
+        <th class="text-left">Total Amount</th>
+        <th class="text-left">Status</th>
+        <th class="text-left">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in info" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.user_id }}</td>
+        <td>{{ item.total_amount }}</td>
+        <td>{{ item.status }}</td>
+        <td>
+          <v-btn color="red" @click="deleteOrder(item.id)">
+            <v-icon>mdi-delete</v-icon> Delete
+          </v-btn>
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
+</template>
 
-        </tr>
-      </thead>
-      <tbody  class="p-5">
-        <tr
-          v-for="item in info"
-          :key="item.name"
-          class="table-row"
-        >
-          <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.email }}</td>
-          <v-menu offset-y class="v-menu__content">
-  <template v-slot:activator="{ on }">
-    <v-btn v-on="on" color="primary">Change Status</v-btn>
-  </template>
-  <v-list class="dropdown-menu">
-    <v-list-item v-for="(statusOption, index) in statusOptions" :key="index">
-      <v-list-item-title @click="updateStatus(item, statusOption)">
-        {{ statusOption }}
-      </v-list-item-title>
-    </v-list-item>
-  </v-list>
-</v-menu>
+<script>
+import axios from 'axios';
 
-        </tr>
-      </tbody>
-    </v-table>
-    </v-main>
-  </template>
-  <script>
-  export default {
-    data () {
-      return {
-        info: [
-          {
-            id:"1001",
-            name: 'Muhammad Ali',
-            email: "m.ali123@mail.com",
-            status: "Processing",
-          },
-        //   {
-        //     id:"1002",
-        //     name: 'Muhammad Ahmad',
-        //     email: "m.ahmad@mail.com",
-        //     status: "Dispatched",
-        //   },
-        //   {
-        //     id:"1003",
-        //     name: 'Mukhtar Ali',
-        //     email: "mukhtar@mail.com",
-        //     status: "Delivered",
-        //   },
- 
-        ],
-        statusOptions: ["Processing", "Dispatched", "Delivered"],
+export default {
+  data() {
+    return {
+      info: [], // Initialize as an empty array
+    };
+  },
+  mounted() {
+    this.fetchOrderData();
+  },
+  methods: {
+    async fetchOrderData() {
+      try {
+        const response = await axios.get('http://10.0.10.220:8080/api/order', {}, {
+          headers: {
+            'Authorization': 'Bearer 110|CPALj2mDX3c6S03Iyc1oWVU6tpIVTzgusbsuQJcN64cae692'
+          }
+        });
+        this.info = response.data;
+      } catch (error) {
+        console.error('Error fetching order data:', error);
       }
     },
-    methods: {
-    updateStatus(item, newStatus) {
-      item.status = newStatus;
+    deleteOrder(orderId) {
+      // Implement delete order logic here
     },
   },
-
-  };
- 
+};
 </script>
-
-
-<style scoped>
-/* Add padding to table rows */
-.table-row {
-  padding: 10px;
-}
-
-/* Style for dropdown menu */
-.dropdown-menu {
-  min-width: 150px;
-}
-
-/* Adjust z-index to ensure dropdown is visible */
-.v-menu__content {
-  z-index: 9999;
-}
-</style>

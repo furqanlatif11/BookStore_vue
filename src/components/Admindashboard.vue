@@ -1,22 +1,26 @@
 <template>
     <v-app>
-        <v-app-bar app color="deep-purple">
-            <v-app-bar-nav-icon>
-                <img src="src/assets/images/" alt="Logo" max-height="48" max-width="120" />
-            </v-app-bar-nav-icon>
+     
 
-            <v-app-title class="ml-10"> Admin Dashboard </v-app-title>
+    
+        <div class="d-flex justify-center">
+         
+  
+          <v-app-bar app color="deep-purple text-center">
+            <v-app-title >Admin Dashboard</v-app-title>
             <v-spacer></v-spacer>
 
-            <v-btn text class="ml-5" @Click="loadUsers('home')">Home</v-btn>
-            <v-btn text class="ml-5" @Click="loadUsers('user')">Users</v-btn>
-            <v-btn text @Click="loadUsers('order')">Orders</v-btn>
-            <v-btn text @Click="loadUsers('products')">Products</v-btn>
-        </v-app-bar>
+            <v-btn text @click="loadUsers('home')">Home</v-btn>
+            <v-btn text @click="loadUsers('user')">Users</v-btn>
+            <v-btn text @click="loadUsers('order')">Orders</v-btn>
+            <v-btn text @click="loadUsers('products')">Products</v-btn>
+          </v-app-bar>
 
+        </div>
         <v-container>
             <v-main>
                 <div v-if="homea" class="mt-10">
+                    
             <h1 class=" text-deep-purple border rounded pl-5 p-5">Admin Home</h1>
 
                     <h1 class="text-center text-deep-purple mt-10">Recently Added Products</h1>

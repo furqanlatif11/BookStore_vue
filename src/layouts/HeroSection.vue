@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-deep-purple pt-10">
-    <v-container fluid class="pt-10">
+  <div class=" pt-10 custom-background bg-deep-purple" >
+    <v-container  class="pt-10">
       <!-- Hero Section -->
       <v-row>
         <!-- Left Column - Text -->
         <v-col cols="12" md="6" class="hero-text pt-10">
           <div class="wrapper">
-            <h1 class="typing-demo ml-10">THINK & GROW RICH!!</h1>
+            <h1 class="typing-demo ">THINK & GROW RICH!!</h1>
           </div>
-          <p class="text-start ps-10">
+          <p class="text-start">
             Celebrate the joy of reading with our extensive selection of books,
             where each page holds the promise of a new adventure. From timeless
             classics to contemporary bestsellers, our bookstore is a treasure
@@ -16,7 +16,7 @@
           </p>
 
           <v-card
-            class="rounded border ms-10 mt-10"
+            class="rounded border  mt-10"
             max-width="400px"
             max-height="200px"
             elevation="5"
@@ -49,7 +49,7 @@
             </div>
            
           </v-card>
-          <v-btn color="warning ml-10 mt-5">EXPLORE MORE</v-btn>
+          <v-btn color="warning mt-5">EXPLORE MORE</v-btn>
           <router-link to="Login"><v-btn color="warning ml-10 mt-5" variant="outlined"
             >BUY NOW</v-btn
           > </router-link>
@@ -57,7 +57,7 @@
 
         <!-- Right Column - Image -->
         <v-col cols="12" md="6">
-          <div class="d-flex justify-content-center ">
+          <div class="d-flex justify-content-end align-end pt-10 hero-image">
             <v-img
               src="src/assets/images/thinking-man-gf9b9e7a8b_1920.png"
               max-width="500px"
@@ -146,5 +146,10 @@ export default {
 .max-width-100 {
   max-width: 100%;
 }
-
+.hero-image{
+  position: static;
+}
+/* .custom-background{
+  background-color: #67219c;
+} */
 </style>

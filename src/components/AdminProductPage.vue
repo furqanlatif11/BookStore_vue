@@ -121,7 +121,7 @@ export default {
       }
     },
     addToCart(book) {
-      // Implement logic to add the book to the cart when clicked
+  
       console.log("Added to cart:", book);
     },
     openModal() {
@@ -137,21 +137,22 @@ export default {
           title: this.newProduct.title,
           author: this.newProduct.author,
           description: this.newProduct.description,
-          cover_image: this.newProduct.imageUrl, // Assuming imageUrl is the cover image
+          cover_image: this.newProduct.imageUrl, 
           price: this.newProduct.price,
         };
 
-        const accessToken = JSON.parse(localStorage.getItem('user_info')).token; // Get the access token from localStorage
+        const accessToken = JSON.parse(localStorage.getItem('user_info')).token;
 
         const response = await axios.post('http://10.0.10.220:8080/api/addbook', modalData, {
           headers: {
-            'Authorization': `Bearer ${accessToken}` // Add the authorization header with the token
+            'Authorization': `Bearer ${accessToken}`
           }
         });
-
-        // Check if the API response indicates success
+        alert("Book Added Successfully")
+        this.$router.go();
+        
         if (response.status === 200 && response.data.message === "Book Added Successfully") {
-          // If successful, add the new product to your products array or update your product list
+      
           this.products.push({
             id: this.products.length + 1,
             imageUrl: this.newProduct.imageUrl,
@@ -161,7 +162,7 @@ export default {
             author: this.newProduct.author,
           });
 
-          // Clear the form and close the modal
+        
           this.newProduct.imageUrl = "";
           this.newProduct.title = "";
           this.newProduct.description = "";
@@ -171,8 +172,8 @@ export default {
 
           // Show a success message or handle it as needed
           this.snackbar = true;
+        
           this.text = "Product added successfully!";
-          this.$router.go();
         } else {
           // Handle errors or show an error message
           console.error('Error adding product:', response);
@@ -185,6 +186,7 @@ export default {
     // -----------------------------------Delete Product API--------------------------------------------------------------------------------
 
     async deleteProduct(productId) {
+    
       try {
         // Get the access token from localStorage
         const accessToken = JSON.parse(localStorage.getItem('user_info')).token;
@@ -196,6 +198,8 @@ export default {
           }
         });
 
+        alert("Product Deleted Successfully")
+        this.$router.go();
         // Check if the API response indicates success
         if (response.status === 200 && response.data.message === "Product Deleted Successfully") {
           // Remove the deleted product from the products array
@@ -204,7 +208,7 @@ export default {
           // Show a success message or handle it as needed
           this.snackbar = true;
           this.text = "Product deleted successfully!";
-          this.$router.go();
+         
         } else {
           // Handle errors or show an error message
           console.error('Error deleting product:', response);

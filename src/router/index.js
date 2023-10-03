@@ -9,6 +9,8 @@ import ProductPage from '@/components/ProductPage.vue'
 import UserCart from '@/components/UserCart.vue'
 import AdminProductPage from '@/components/AdminProductPage.vue'
 import WishlistPage from '@/components/WishlistPage.vue'
+import BuyNow from '@/components/BuyNow.vue'
+// import RelatedProductPage from '@/components/RealtedProductPage.vue'
 // import HeroSection from '@/components/HeroSection'
 
 const routes = [
@@ -50,6 +52,12 @@ const routes = [
     component: ProductPage, 
     props: true,
   },
+  // {
+  //   path: '/relatedproductpage/:id', 
+  //   name: 'RelatedProductPage',
+  //   component: RelatedProductPage, 
+  //   props: true,
+  // },
   {
     path: '/usercart',
     name: 'UserCart',
@@ -65,7 +73,11 @@ const routes = [
     name: 'WishlistPage',
     component: WishlistPage,
   }, 
-  
+  {
+    path: '/buynow/:id',
+    name: 'BuyNow',
+    component: BuyNow,
+  },   
   
   
 ]

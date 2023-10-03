@@ -16,6 +16,7 @@
     "roboto-fontface": "*",
     "v-autocomplete": "^1.8.2",
     "vue": "^3.2.0",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.0.0",
     "vuetify": "^3.0.0",
     "vuex": "^4.1.0"

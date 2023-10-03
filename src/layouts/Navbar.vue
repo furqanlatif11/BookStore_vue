@@ -1,46 +1,53 @@
 <template>
-  <v-app-bar app color="deep-purple">
-    <v-app-bar-nav-icon>
-      <img src="src/assets/images/Untitled design.png" alt="Logo" max-height="48" max-width="160" />
-    </v-app-bar-nav-icon>
+  <v-app-bar app color="white">
+    <v-container>
+      <v-row>
+      
+        <v-col cols="6" class="pt-7">
+        <v-img src="src/assets/images/Kitaab-Now-png-high-res-uai-1440x250.png" width="180px"></v-img>
+        </v-col>
 
-    <v-spacer></v-spacer>
+        <!-- Navigation Buttons and Icons on the Right -->
+        <v-col cols="6" class="text-right pt-6">
+          <!-- Cart Button -->
+          <router-link to="UserCart">
+            <v-btn icon>
+              <v-icon title="Cart" color="#1f1991">mdi-cart</v-icon>
+            </v-btn>
+          </router-link>
 
-    <v-text-field v-model="searchQuery" label="Search Books" @input="performSearch" outlined></v-text-field>
+          <!-- Wishlist Button -->
+          <v-btn icon @click="openModal">
+            <v-icon title="Your Wishlist" color="red">mdi-heart</v-icon>
+          </v-btn>
 
-    <v-spacer></v-spacer>
+          <!-- User Account Menu -->
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+              <v-btn color="" v-bind="props">
+                <v-icon title="Account" color="">mdi-account</v-icon>
+              </v-btn>
+            </template>
 
-    <router-link to="UserCart">
-      <v-btn>
-        <v-icon title="Cart" color="white">mdi-cart</v-icon>
-      </v-btn>
-    </router-link>
+            <v-list>
+              <v-list-item v-for="(item, index) in items" :key="index">
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
 
-    <v-btn @click="openModal">
-      <v-icon title="Your Wishlist">mdi-heart</v-icon>
-    </v-btn>
+          <!-- Log In Button -->
+          <router-link to="Login">
+            <v-btn variant="outlined" color="#1f1991">Log In</v-btn>
+          </router-link>
 
-    <v-menu open-on-hover>
-      <template v-slot:activator="{ props }">
-        <v-btn color="white" v-bind="props">
-          <v-icon title="Account">mdi-account</v-icon>
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item v-for="(item, index) in items" :key="index">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-
-    <router-link to="Login">
-      <v-btn variant="outlined" color="warning">Log In</v-btn>
-    </router-link>
-
-    <router-link to="Signup">
-      <v-btn variant="flat" color="warning">Sign Up</v-btn>
-    </router-link>
+          <!-- Sign Up Button -->
+          <router-link to="Signup">
+            <v-btn variant="flat" color="#1f1991" class="">Sign Up</v-btn>
+          </router-link>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app-bar>
   <wishlist-modal :modalValue="modal" @update:modalValue="modal = $event" />
 </template>
@@ -68,11 +75,10 @@ export default {
     openModal() {
       this.modal = true;
     },
- 
   },
 };
 </script>
 
 <style scoped>
-
+/* Add any custom styles here */
 </style>

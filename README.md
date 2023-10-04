@@ -1,3 +1,19 @@
+            DATE: 02-Oct-2023      DAY: Monday
+Today's Achievement
+              Admin Panel
+                -Add Product
+                -Delete Product
+                -User Details
+                -Order Details
+                -Admin Login Authentication
+                -Debugging
+              User Dashboard
+                -Specific Product Display
+                -Add to Cart
+                -Wishlist
+                
+
+             
              DATE: 28-Sept-2023      DAY: Thursday
 Today's Goal
               Enhanced Interface

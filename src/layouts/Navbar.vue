@@ -38,7 +38,7 @@
 
           <!-- Log In Button -->
           <router-link to="Login">
-            <v-btn variant="outlined" color="#1f1991">Log In</v-btn>
+            <v-btn variant="outlined" color="#1f1991" class=" ">Log In</v-btn>
           </router-link>
 
           <!-- Sign Up Button -->

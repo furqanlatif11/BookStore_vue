@@ -1,14 +1,14 @@
 <template>
-  <div class=" pt-10 custom-background bg-deep-purple" >
+  <div class=" pt-10 custom-background " >
     <v-container  class="pt-10">
       <!-- Hero Section -->
       <v-row>
         <!-- Left Column - Text -->
         <v-col cols="12" md="6" class="hero-text pt-10">
           <div class="wrapper">
-            <h1 class="typing-demo ">THINK & GROW RICH!!</h1>
+            <h1 class="typing-demo text-white">THINK & GROW RICH!!</h1>
           </div>
-          <p class="text-start">
+          <p class="text-start text-white">
             Celebrate the joy of reading with our extensive selection of books,
             where each page holds the promise of a new adventure. From timeless
             classics to contemporary bestsellers, our bookstore is a treasure
@@ -38,31 +38,27 @@
                 <v-icon color="orange">mdi-star</v-icon>
                 <v-icon color="orange">mdi-star</v-icon> 
                 <v-divider class="mt-3"></v-divider>   
-                <article class="mt-3 d-flex justify-space-around">
-                <a href="" class="ms-3 text-primary"><v-icon >mdi-cart</v-icon></a>
-                <a href="" class="ms-3 "  ><v-icon color="red">mdi-heart</v-icon></a>
-                <a href="" class="ms-3 "  ><v-icon color="black">mdi-shopping</v-icon></a>
-              </article>            
+                        
               </article>
              
               <v-divider></v-divider>
             </div>
            
           </v-card>
-          <v-btn color="warning mt-5">EXPLORE MORE</v-btn>
-          <router-link to="Login"><v-btn color="warning ml-10 mt-5" variant="outlined"
+          <v-btn variant="flat" color="yellow mt-5">EXPLORE MORE</v-btn>
+          <router-link to="Login"><v-btn color="yellow ml-10 mt-5" variant="outlined"
             >BUY NOW</v-btn
           > </router-link>
         </v-col>
 
         <!-- Right Column - Image -->
-        <v-col cols="12" md="6">
-          <div class="d-flex justify-content-end align-end pt-10 hero-image">
+        <v-col cols="12" md="6" class="pb-3">
+          <div class="d-flex justify-content-end align-end pt-10 hero-image pb-0">
             <v-img
-              src="src/assets/images/thinking-man-gf9b9e7a8b_1920.png"
-              max-width="500px"
-              class="pt-10"
-            ></v-img>
+            src="src/assets/images/Greene-Deep-Etch-Lowres.webp"
+            max-width="500px"
+            max-height="100%" 
+          ></v-img>
           </div>
         </v-col>
       </v-row>
@@ -115,6 +111,9 @@ export default {
   font-family: monospace;
   font-size: 4em;
 }
+.v-locale--is-ltr{
+  padding:0px;
+} 
 
 @keyframes typing {
   from {
@@ -146,10 +145,21 @@ export default {
 .max-width-100 {
   max-width: 100%;
 }
-.hero-image{
-  position: static;
+.hero-image {
+
+  text-align: center;
+  position: relative; 
+  display: flex; 
+  align-items: flex-end; 
 }
-/* .custom-background{
-  background-color: #67219c;
-} */
+
+.hero-image img {
+  max-width: 100%;
+  height: 100%; 
+  object-fit: cover;
+
+}
+.custom-background{
+  background: linear-gradient(to bottom, #091290, #16659e);
+}
 </style>

@@ -10,6 +10,7 @@ import UserCart from '@/components/UserCart.vue'
 import AdminProductPage from '@/components/AdminProductPage.vue'
 import WishlistPage from '@/components/WishlistPage.vue'
 import BuyNow from '@/components/BuyNow.vue'
+import UpdateForm from '@/layouts/UpdateForm.vue'
 // import RelatedProductPage from '@/components/RealtedProductPage.vue'
 // import HeroSection from '@/components/HeroSection'
 
@@ -78,6 +79,11 @@ const routes = [
     name: 'BuyNow',
     component: BuyNow,
   },   
+  {
+    path: '/updateform/:id',
+    name: 'UpdateForm',
+    component: UpdateForm,
+  }, 
   
   
 ]

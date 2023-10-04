@@ -3,10 +3,16 @@
   <v-app>
     <Navbar />
     <v-main>
+      <div class="buy-now-bg p-10">
+        <h1 class="text-center pt-10  text-yellow">Book Details</h1>
+       <div class="text-center">
+        <v-icon class="text-yellow  pb-10">mdi-arrow-down</v-icon>
+       </div>
+
+    </div>
       <v-container>
         <div>
-          <h1 class="mt-10">Book Details</h1>
-          <v-divider></v-divider>
+         
 
           <v-row class="mt-10">
             <v-col cols="12" sm="12" md="6" lg="6">
@@ -54,10 +60,13 @@
 
                 </v-card-text>
 
-                <div class="d-flex align-center w-50 ml-4">
-                  <v-text-field v-model="quantity" type="number" placeholder="1" min="1"
-                    :style="{ width: '25%' }"></v-text-field>
-                  <v-btn @click="addToCart" color="deep-purple" class="ml-10">Add to Cart</v-btn>
+                <div class="d-flex  w-75  mb-4">
+                 
+                  <v-btn class="ml-4 mt-3" color="#1f1991" variant="flat"  @click="navigateToBuyNow(book.id)">
+                        Buy Now
+                      </v-btn>
+                
+         
                 </div>
 
 
@@ -230,9 +239,12 @@ export default {
     }
   },
   methods: {
-    // navigateToBookDetails(bookId) {
-    //   this.$router.push({ name: "RealtedProductPage", params: { id: bookId } });
-    // },
+    navigateToBuyNow(bookId){
+      this.$router.push({ name: "BuyNow", params: { id: bookId } });
+    },
+    navigateToBookDetails(bookId) {
+      this.$router.push({ name: "RelatedBook", params: { id: bookId } });
+    },
   },
 
 
@@ -281,6 +293,9 @@ export default {
 
 .mx-auto:hover {
   box-shadow: 9px 9px 9px rgba(20, 20, 20, 0.6);
+}
+.buy-now-bg{
+  padding:20px
 }
 </style>
   

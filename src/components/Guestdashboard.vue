@@ -330,4 +330,5 @@ export default {
 .image-container:hover {
   transform: scale(1.1); /* Scale the image to 110% on hover (adjust the value as needed) */
 }
+
 </style>

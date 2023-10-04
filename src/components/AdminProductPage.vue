@@ -28,7 +28,7 @@
                                         </v-btn>
 
                                         <div class="text-center">
-                                            <v-btn icon @click="addToCart(book)" color="deep-purple">
+                                            <v-btn icon @click="navigateToUpdateBook(book.id)" color="deep-purple">
                                                 <v-icon color="white">mdi-pencil</v-icon>
                                             </v-btn>
 
@@ -78,6 +78,7 @@
                 </v-row>
             </v-container>
         </v-main>
+        
     </v-app>
 </template>
 
@@ -120,10 +121,10 @@ export default {
         console.error("Error fetching books:", error);
       }
     },
-    addToCart(book) {
-  
-      console.log("Added to cart:", book);
+    navigateToUpdateBook(bookId){
+      this.$router.push({ name: "UpdateForm", params: { id: bookId } });
     },
+   
     openModal() {
       this.modal = true;
     },
